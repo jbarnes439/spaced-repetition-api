@@ -77,7 +77,7 @@ languageRouter
       req.app.get('db'),
       req.language
     )
-    
+    console.log('in language router: ' + linkedList.head.value.translation)
     linkedList = await LanguageService.checkAnswer(req.language, linkedList, guess)    
     let nextTranslation = linkedList.head.value
 

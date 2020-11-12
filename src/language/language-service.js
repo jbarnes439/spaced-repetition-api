@@ -67,13 +67,14 @@ const LanguageService = {
         current = data.find(word => (word.id === current.next));         
         wordList.insertLast(current)        
       }
+      
       return wordList;         
   },
 
   /* need to test user response to head value if user response 
      matches translation: memory_value * 2 - shift the word's 
      index back by new memory value. */
-  checkAnswer(db, language, linkedList, guess) {
+  checkAnswer(language, linkedList, guess) {
     let isCorrect = false;
     const current = linkedList.head;
     let translation = current.value.translation;
