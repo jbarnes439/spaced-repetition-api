@@ -216,13 +216,14 @@ class LinkedList {
 
 }
 
+
 function display(list) {
     let currNode = list.head;
     if (currNode === null) {
         console.log('List is empty');
         return;
     }
-    console.log('in display: ' + currNode.value.id)
+    
     return displayRecursiveAdd(currNode, []);
 }
 

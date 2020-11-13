@@ -2,7 +2,7 @@ const express = require('express')
 const LanguageService = require('./language-service')
 const { requireAuth } = require('../middleware/jwt-auth')
 const { json } = require('express')
-const LinkedList = require('./word-linked-list');
+const { linkedListToArray, display } = require('./word-linked-list');
 
 const languageRouter = express.Router()
 const jsonBodyParser = express.json()
@@ -73,23 +73,34 @@ languageRouter
         return res.status(400).json({
           error: `Missing '${field}' in request body`
         })
-    let linkedList = await LanguageService.setWordsToLinkedList(
+    let wordLinkedList = await LanguageService.setWordsToLinkedList(
       req.app.get('db'),
       req.language
     )
-    console.log('in language router: ' + linkedList.head.value.translation)
-    linkedList = await LanguageService.checkAnswer(req.language, linkedList, guess)    
-    let nextTranslation = linkedList.head.value
-    console.log('in Language Router after check answer: ' + linkedList.head.value.translation)
+    // check answer against head value of linked list
+    let answer = wordLinkedList.head.value.translation    
+    let isCorrect = false;
+    if (answer == guess) {
+      isCorrect = true;
+      req.language.total_score++
+    }    
+    
+    // update linked list with new head pending answer, 
+    wordLinkedList = await LanguageService.checkAnswer(wordLinkedList, guess)    
+    let nextTranslation = wordLinkedList.head.value
+    
+    
 
-    // await LanguageService.updateDatabase(
-    //   req.app.get('db'),
-    //   req.language.id,
-    //   linkedList,
-    //   req.language.total_score
-    // );
+    await LanguageService.updateDatabase(
+      req.app.get('db'),
+      req.language.id,
+      wordLinkedList,
+      req.language.total_score
+    );
 
     res.json({
+      answer: answer,
+      isCorrect: isCorrect,
       nextWord: nextTranslation.original,
       wordCorrectCount: nextTranslation.correct_count,
       wordIncorrectCount: nextTranslation.incorrect_count,

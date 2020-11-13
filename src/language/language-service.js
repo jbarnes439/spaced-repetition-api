@@ -64,7 +64,7 @@ const LanguageService = {
       // while (current) will stop before we get errors for next being undefined. 
       while (current) {
         // console.log(current) here will allow visualization of entire list
-        console.log(current);
+        // console.log(current);
         wordList.insertLast(current)        
         current = data.find(word => (word.id === current.next));         
       }
@@ -75,18 +75,15 @@ const LanguageService = {
   /* need to test user response to head value if user response 
      matches translation: memory_value * 2 - shift the word's 
      index back by new memory value. */
-  checkAnswer(language, linkedList, guess) {
+  checkAnswer(linkedList, guess) {
     let isCorrect = false;
     const current = linkedList.head;
-    let translation = current.value.translation;
-    let totalScore = language.total_score;
+    let translation = current.value.translation;    
 
     if (guess === translation) {
       isCorrect = true;
       current.value.correct_count++;
       current.value.memory_value *= 2;
-      totalScore++;
-
     } else {
       current.value.incorrect_count++;
       current.value.memory_value = 1;
@@ -94,7 +91,7 @@ const LanguageService = {
 
     console.log('in check answer: ' +current.value.translation)
     linkedList.remove(current.value);    
-    linkedList.insertAt(current.value, current.value.memory_value + 1)
+    linkedList.insertAt(current.value, current.value.memory_value)
     return linkedList
   },
 
@@ -103,16 +100,11 @@ const LanguageService = {
   //update language head, update current value's correct/incorrect count, change where head points
 
   updateDatabase(db, language_id, wordsLL, totalScore) {
-    // const newList = display(wordsLL);
-    // console.log('newList.length: ' + newList.length)
-    // for (let i = 0; i < newList.length; i++) {
-    //   if (i + 1 === newList.length) {
-    //     newList[i].next = null;
-    //   } else {
-    //     console.log('newList[i].next: ' + newList[i].id)
-    //     newList[i].next = newList[i + 1].id;
-    //   }
-    // }   
+    const newList = display(wordsLL);
+      for (let i = 0; i < newList.length; i++) {
+        if (i + 1 >= newList.length) newList[i].next = null;
+        else newList[i].next = newList[i + 1].id;
+      }  
       return db.transaction(async (trx) => {
         await Promise.all([
           // update language head and score
