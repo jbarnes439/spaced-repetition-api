@@ -45,31 +45,31 @@ Create-react-app was used to create the front end. The app utilizes a RESTful AP
    }
 
 ### GET /api/language/head
-   // protected endpoint
-   // res.body
-   {
-      nextWord: string,
-      totalScore: integer,
-      wordCorrectCount: integer,
-      wordIncorrectCount: integer
-   }
+      // protected endpoint
+      // res.body
+      {
+         nextWord: string,
+         totalScore: integer,
+         wordCorrectCount: integer,
+         wordIncorrectCount: integer
+      }
 
 ### POST /api/language/guess
-   // protected endpoint
-   // req.body
-   {
-      guess: string
-   }
+      // protected endpoint
+      // req.body
+      {
+         guess: string
+      }
 
-   // res.body
-   {
-      answer: string,
-      isCorrect: boolean,
-      nextWord: string,
-      wordCorrectCount: integer,
-      wordIncorrectCount: integer,
-      totalScore: integer
-   }
+      // res.body
+      {
+         answer: string,
+         isCorrect: boolean,
+         nextWord: string,
+         wordCorrectCount: integer,
+         wordIncorrectCount: integer,
+         totalScore: integer
+      }
 
 
 ## Scripts
