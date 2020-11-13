@@ -7,42 +7,42 @@
 Create-react-app was used to create the front end. The app utilizes a RESTful API pattern created with Postgresql, ExpressJS and NodeJS
 ## Endpoints
 ### POST /api/auth/login
-   // req.body
-   {
-      username: string,
-      password: string
-   }
+      // req.body
+      {
+         username: string,
+         password: string
+      }
 
-   // res.body
-   {
-      authToken: string
-      user: string
-   }
+      // res.body
+      {
+         authToken: string
+         user: string
+      }
 
 ### GET /api/language
-   // protected endpoint
-   // res.body
-   {
-      language: {
-         head: integer
-         id: integer
-         name: string
-         total_score: integer
-         user_id: integer
-      },
-      words: [
-         integer(id): {
-            correct_count: integer
+      // protected endpoint
+      // res.body
+      {
+         language: {
+            head: integer
             id: integer
-            incorrect_count: integer
-            language_id: integer
-            memory_value: integer
-            next: integer
-            original: string
-            translation: string
+            name: string
+            total_score: integer
+            user_id: integer
          },
-      ]
-   }
+         words: [
+            integer(id): {
+               correct_count: integer
+               id: integer
+               incorrect_count: integer
+               language_id: integer
+               memory_value: integer
+               next: integer
+               original: string
+               translation: string
+            },
+         ]
+      }
 
 ### GET /api/language/head
       // protected endpoint
