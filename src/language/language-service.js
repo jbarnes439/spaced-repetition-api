@@ -107,7 +107,7 @@ const LanguageService = {
       }  
       return db.transaction(async (trx) => {
         await Promise.all([
-          // update language head and score
+          // update language head and score in database
           await trx('language').where({id: language_id}).update({
             total_score: totalScore,
             head: wordsLL.head.value.id,

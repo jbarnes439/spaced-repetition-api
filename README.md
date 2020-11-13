@@ -1,43 +1,76 @@
-# Spaced repetition API!
+# Spanglish server: A spaced repetition API!
 
-## Local dev setup
+## Links
+   Live: 
+   Client-code: https://github.com/jbarnes439/spaced-repetition.git
+## Stack
+Create-react-app was used to create the front end. The app utilizes a RESTful API pattern created with Postgresql, ExpressJS and NodeJS
+## Endpoints
+### POST /api/auth/login
+   // req.body
+   {
+      username: string,
+      password: string
+   }
 
-If using user `dunder-mifflin`:
+   // res.body
+   {
+      authToken: string
+      user: string
+   }
 
-```bash
-mv example.env .env
-createdb -U dunder-mifflin spaced-repetition
-createdb -U dunder-mifflin spaced-repetition-test
-```
+### GET /api/language
+   // protected endpoint
+   // res.body
+   {
+      language: {
+         head: integer
+         id: integer
+         name: string
+         total_score: integer
+         user_id: integer
+      },
+      words: [
+         integer(id): {
+            correct_count: integer
+            id: integer
+            incorrect_count: integer
+            language_id: integer
+            memory_value: integer
+            next: integer
+            original: string
+            translation: string
+         },
+      ]
+   }
 
-If your `dunder-mifflin` user has a password be sure to set it in `.env` for all appropriate fields. Or if using a different user, update appropriately.
+### GET /api/language/head
+   // protected endpoint
+   // res.body
+   {
+      nextWord: string,
+      totalScore: integer,
+      wordCorrectCount: integer,
+      wordIncorrectCount: integer
+   }
 
-```bash
-npm install
-npm run migrate
-env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate
-```
+### POST /api/language/guess
+   // protected endpoint
+   // req.body
+   {
+      guess: string
+   }
 
-And `npm test` should work at this point
+   // res.body
+   {
+      answer: string,
+      isCorrect: boolean,
+      nextWord: string,
+      wordCorrectCount: integer,
+      wordIncorrectCount: integer,
+      totalScore: integer
+   }
 
-## Configuring Postgres
-
-For tests involving time to run properly, configure your Postgres database to run in the UTC timezone.
-
-1. Locate the `postgresql.conf` file for your Postgres installation.
-   1. E.g. for an OS X, Homebrew install: `/usr/local/var/postgres/postgresql.conf`
-   2. E.g. on Windows, _maybe_: `C:\Program Files\PostgreSQL\11.2\data\postgresql.conf`
-   3. E.g  on Ubuntu 18.04 probably: '/etc/postgresql/10/main/postgresql.conf'
-2. Find the `timezone` line and set it to `UTC`:
-
-```conf
-# - Locale and Formatting -
-
-datestyle = 'iso, mdy'
-#intervalstyle = 'postgres'
-timezone = 'UTC'
-#timezone_abbreviations = 'Default'     # Select the set of available time zone
-```
 
 ## Scripts
 

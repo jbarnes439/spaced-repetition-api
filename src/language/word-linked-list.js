@@ -118,22 +118,6 @@ class LinkedList {
         this.length++
     }
 
-    // insertAt(reference, position) {
-    //     let curr = this.head;
-    //     let count = 1;
-    //     console.log('reference ' + reference.translation)
-    //     console.log('in insertAt ' + curr.next)
-    //     while (count !== position - 1 && curr.next) {
-    //         console.log(count)
-    //         count++;
-    //         curr = curr.next;
-    //     }
-    //     let newNode = new _Node(reference, null);
-    //     newNode.next = curr.next.next
-    //     curr.next = newNode;
-    //     this.length++
-    // }
-
     insertAt(item, position) {
         if (this.head === null) {
           if (position === 0) {
@@ -159,40 +143,6 @@ class LinkedList {
         prevNode.next = new _Node(item, tempNode);
       }
     
-
-    // moveHead() {
-    //     let currentNode = this.head;
-    //     let nextNode = null;
-    //     let prevNode = null;                
-    //     while (currentNode) {             
-    //         nextNode = currentNode.next;
-    //         currentNode.next = prevNode;
-    //         prevNode = nextNode;
-    //         currentNode = nextNode;
-    //     }
-    //     this.head = prevNode;        
-    // }
-
-    // moveNodeByPosition(position, headNode) {
-    //     if (position < 0 || position > this.length) { // verification of the specified position value
-    //         return 'Incorrect value of position';
-    //     }
-    //     let insertValue = headNode.value
-    //     this.head = this.head.next
-    //     let current = this.head; // the head of the list
-    //     let index = 0; // the index for incrementation
-
-    //     while(index < position) {  // goes through each node until the index reaches the position
-    //         if (!current.next) {
-    //             let movedNode = new _Node(insertValue, null)
-    //             return
-    //         }
-    //         current = current.next; // moves the link to the next node of the current node
-    //         index++; // increaments the index
-    //     }
-    //     current
-    //     // return current.value;
-    // }
 
     moveHeadByPosition(position) {
         if (position < 0) { // verification of the specified position value
@@ -234,5 +184,5 @@ function displayRecursiveAdd(node, arr) {
         return [node.value, ...displayRecursiveAdd(node.next)];
     }
 }
-// will need to modify if display is to be used outside
+
 module.exports = {LinkedList, display};
