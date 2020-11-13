@@ -58,14 +58,15 @@ const LanguageService = {
       // get word out of array where language.head = word id
       // loop through data array insert into wordList word.next while word.next != null
       let head = data.find(word => (word.id === language.head))
-      wordList.insertFirst(head)      
+      wordList.insertFirst(head) 
+           console.log('head.next in turn to list: ' + head.next)
       let current = data.find(word => word.id === head.next)
       // while (current) will stop before we get errors for next being undefined. 
       while (current) {
         // console.log(current) here will allow visualization of entire list
         console.log(current);
-        current = data.find(word => (word.id === current.next));         
         wordList.insertLast(current)        
+        current = data.find(word => (word.id === current.next));         
       }
       
       return wordList;         
@@ -91,7 +92,7 @@ const LanguageService = {
       current.value.memory_value = 1;
     }
 
-    
+    console.log('in check answer: ' +current.value.translation)
     linkedList.remove(current.value);    
     linkedList.insertAt(current.value, current.value.memory_value + 1)
     return linkedList
@@ -111,8 +112,7 @@ const LanguageService = {
     //     console.log('newList[i].next: ' + newList[i].id)
     //     newList[i].next = newList[i + 1].id;
     //   }
-    // }
-    console.log(wordsLL.map(word => console.log(word.value.id)))
+    // }   
       return db.transaction(async (trx) => {
         await Promise.all([
           // update language head and score

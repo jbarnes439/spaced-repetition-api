@@ -80,13 +80,14 @@ languageRouter
     console.log('in language router: ' + linkedList.head.value.translation)
     linkedList = await LanguageService.checkAnswer(req.language, linkedList, guess)    
     let nextTranslation = linkedList.head.value
+    console.log('in Language Router after check answer: ' + linkedList.head.value.translation)
 
-    await LanguageService.updateDatabase(
-      req.app.get('db'),
-      req.language.id,
-      linkedList,
-      req.language.total_score
-    );
+    // await LanguageService.updateDatabase(
+    //   req.app.get('db'),
+    //   req.language.id,
+    //   linkedList,
+    //   req.language.total_score
+    // );
 
     res.json({
       nextWord: nextTranslation.original,

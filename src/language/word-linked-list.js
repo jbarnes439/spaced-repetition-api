@@ -136,7 +136,7 @@ class LinkedList {
 
     insertAt(item, position) {
         if (this.head === null) {
-          if (position === 1) {
+          if (position === 0) {
             this.insertFirst(item);
             return;
           } else {
@@ -144,7 +144,7 @@ class LinkedList {
             return;
           }
         }
-        let currentPosition = 1;
+        let currentPosition = 0;
         let currNode = this.head;
         let prevNode = this.head;
         while (currentPosition !== position && currNode !== null) {
